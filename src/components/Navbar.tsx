@@ -1,4 +1,4 @@
-import Dropdown, {DropdownItem} from "../Dropdown.tsx";
+import Dropdown, {DropdownItem} from "./Dropdown.tsx";
 
 export default function Navbar() {
 

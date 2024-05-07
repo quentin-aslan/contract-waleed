@@ -1,18 +1,15 @@
 import {useEffect, useRef, useState} from "react";
+import {DropdownItem} from "./Dropdown.tsx";
 
-export type DropdownItem = {
-    id: string,
-    label: string,
-    url?: string
-}
+export type MobileDropdownItem  = DropdownItem
 
 type DropdownProps = {
     title: string,
-    items: DropdownItem[]
-    onItemClick: (item: DropdownItem) => void
+    items: MobileDropdownItem[]
+    onItemClick: (item: MobileDropdownItem) => void
 }
 
-export default function Dropdown({ title, items, onItemClick }: DropdownProps) {
+export default function MobileDropdown({ title, items, onItemClick }: DropdownProps) {
 
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const dropdownRef = useRef<HTMLDivElement | null>(null);

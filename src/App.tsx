@@ -1,11 +1,16 @@
-import Navbar from "./components/navbar/Navbar.tsx";
+import Navbar from "./components/Navbar.tsx";
+import Card from "./components/Card.tsx";
+import {MOCKS} from "./mocks.ts";
 
 export default function App() {
     return (
-        <div className={"bg-black h-full p-5"}>
+        <div className={"h-full bg-black p-5"}>
             <Navbar/>
-            <div className="text-white h-screen flex items-center justify-center">
-                <h1 className="text-4xl">Hello World</h1>
+            <div className={"grid grid-cols-1 md:grid-cols-3 gap-4 mt-4"}>
+                {MOCKS.map((mock, index) => (
+                        <Card key={index} {...mock} onItemClick={(item) => console.log(item)} />
+                    )
+                )}
             </div>
         </div>
 )
