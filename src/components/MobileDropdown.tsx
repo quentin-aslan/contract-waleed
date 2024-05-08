@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import {DropdownItem} from "./Dropdown.tsx";
 import MenuBars from "./icons/MenuBars.tsx";
 
@@ -7,12 +7,12 @@ export type MobileDropdownItem  = DropdownItem
 type MobileDropdownProps = {
     children?: React.ReactNode,
     items: MobileDropdownItem[]
-    onItemClick: (item: MobileDropdownItem) => void
+    onItemClick: (item: MobileDropdownItem) => void,
+    isDropdownVisible: boolean,
+    setIsDropdownVisible: (visible: boolean) => void
 }
 
-export default function MobileDropdown({ children, items, onItemClick}: MobileDropdownProps) {
-
-    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+export default function MobileDropdown({ children, items, onItemClick, setIsDropdownVisible, isDropdownVisible}: MobileDropdownProps) {
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     const toggleDropdown = () => {
@@ -45,6 +45,7 @@ export default function MobileDropdown({ children, items, onItemClick}: MobileDr
                         <a className="cursor-pointer whitespace-nowrap hover:text-primary" key={item.id}
                            onClick={() => {
                                onItemClick(item);
+                               setIsDropdownVisible(false);
                            }}>{item.label}</a>
                     ))}
                     {children}

@@ -51,7 +51,10 @@ export default function Dropdown({ title, items, onItemClick }: DropdownProps) {
                 <div
                     className={`absolute bg-black border-2 border-primary max-md:border-t-0 text-white p-2 md:mt-4 flex flex-col gap-2`}>
                     {items.map((item) => (
-                        <a className={"cursor-pointer whitespace-nowrap hover:text-primary"} key={item.id} onClick={() => onItemClick(item)}>{item.label}</a>
+                        <a className={"cursor-pointer whitespace-nowrap hover:text-primary"} key={item.id} onClick={() => {
+                            onItemClick(item)
+                            setIsDropdownVisible(false);
+                        }}>{item.label}</a>
                     ))}
                 </div>
             )}

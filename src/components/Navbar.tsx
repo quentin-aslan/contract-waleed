@@ -1,7 +1,12 @@
 import Dropdown, {DropdownItem} from "./Dropdown.tsx";
 import MobileDropdown from "./MobileDropdown.tsx";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 export default function Navbar() {
+    const navigate = useNavigate()
+    const [isMobileDropdownVisible, setIsMobileDropdownVisible] = useState(false);
+
     const toolsOptions: DropdownItem[] = [
         {
             id: "blog",
@@ -25,34 +30,36 @@ export default function Navbar() {
             <h1 className="text-2xl text-secondary">QA</h1>
 
             {/* Desktop Navbar */}
-            <ul className="max-md:hidden flex space-x-4 items-center">
-                <li><a className={"hover:text-primary"} href="/">Map Search</a></li>
-                <li><a className={"hover:text-primary"} href="#">Market Trends</a></li>
-                <li><a className={"hover:text-primary"} href="#">Home Valuation</a></li>
-                <Dropdown title={"Tools"} items={toolsOptions} onItemClick={(item) => window.open(item.url, '_blank')}/>
-                <button className="bg-black border-2 border-primary hover:border-secondary text-white hover:text-primary px-4 py-2">
+            <ul className="max-md:hidden flex space-x-4 items-center cursor-pointer">
+                <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Map Search</a></li>
+                <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Market Trends</a></li>
+                <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Home Valuation</a></li>
+                <Dropdown title={"Tools"} items={toolsOptions} onItemClick={(item) => navigate(item.url ?? '/')}/>
+                <button className="bg-black border-2 border-primary hover:border-secondary text-white hover:text-primary px-4 py-2" onClick={() => navigate('/')}>
                     Login In
                 </button>
-                <button className="bg-secondary border-2 border-secondary text-black hover:text-white px-4 py-2">
+                <button className="bg-secondary border-2 border-secondary text-black hover:text-white px-4 py-2" onClick={() => navigate('/')}>
                     Join
                 </button>
             </ul>
 
             {/* Mobile Navbar */}
             <div className={"md:hidden"}>
-                <MobileDropdown items={[]} onItemClick={(item) => window.open(item.url, '_blank')}>
-                    <ul className="flex flex-col gap-2">
-                        <li><a className={"hover:text-primary"} href="/">Map Search</a></li>
-                        <li><a className={"hover:text-primary"} href="#">Market Trends</a></li>
-                        <li><a className={"hover:text-primary"} href="#">Home Valuation</a></li>
+                <MobileDropdown isDropdownVisible={isMobileDropdownVisible} setIsDropdownVisible={setIsMobileDropdownVisible} items={[]} onItemClick={() => null}>
+                    <ul className="flex flex-col gap-2" onClick={() => setIsMobileDropdownVisible(false)}>
+                        <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Map Search</a></li>
+                        <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Market Trends</a></li>
+                        <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Home Valuation</a></li>
                         <Dropdown title={"Tools"} items={toolsOptions}
-                                  onItemClick={(item) => window.open(item.url, '_blank')}/>
+                                  onItemClick={(item) => navigate(item.url ?? '/')}/>
                         <button
-                            className="bg-black border-2 border-primary hover:border-secondary text-white hover:text-primary px-4 py-2">
+                            className="bg-black border-2 border-primary hover:border-secondary text-white hover:text-primary px-4 py-2"
+                            onClick={() => navigate('/')}>
                             Login In
                         </button>
                         <button
-                            className="bg-secondary border-2 border-secondary text-black hover:text-white px-4 py-2">
+                            className="bg-secondary border-2 border-secondary text-black hover:text-white px-4 py-2"
+                            onClick={() => navigate('/')}>
                             Join
                         </button>
                     </ul>
