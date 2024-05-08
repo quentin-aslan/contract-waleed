@@ -46,12 +46,11 @@ export default function Navbar() {
             {/* Mobile Navbar */}
             <div className={"md:hidden"}>
                 <MobileDropdown isDropdownVisible={isMobileDropdownVisible} setIsDropdownVisible={setIsMobileDropdownVisible} items={[]} onItemClick={() => null}>
-                    <ul className="flex flex-col gap-2" onClick={() => setIsMobileDropdownVisible(false)}>
+                    <ul className="flex flex-col gap-2">
                         <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Map Search</a></li>
                         <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Market Trends</a></li>
                         <li><a className={"hover:text-primary"} onClick={() => navigate('/')}>Home Valuation</a></li>
-                        <Dropdown title={"Tools"} items={toolsOptions}
-                                  onItemClick={(item) => navigate(item.url ?? '/')}/>
+                        <Dropdown title={"Tools"} items={toolsOptions} onItemClick={(item) => navigate(item.url ?? '/')}/>
                         <button
                             className="bg-black border-2 border-primary hover:border-secondary text-white hover:text-primary px-4 py-2"
                             onClick={() => navigate('/')}>

@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import {useLocation} from "react-router-dom";
 
 export type DropdownItem = {
     id: string,
@@ -21,6 +22,12 @@ export default function Dropdown({ title, items, onItemClick }: DropdownProps) {
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
+
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsDropdownVisible(false);
+    }, [location]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -53,7 +60,6 @@ export default function Dropdown({ title, items, onItemClick }: DropdownProps) {
                     {items.map((item) => (
                         <a className={"cursor-pointer whitespace-nowrap hover:text-primary"} key={item.id} onClick={() => {
                             onItemClick(item)
-                            setIsDropdownVisible(false);
                         }}>{item.label}</a>
                     ))}
                 </div>

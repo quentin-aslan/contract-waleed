@@ -1,6 +1,7 @@
 import {useEffect, useRef} from "react";
 import {DropdownItem} from "./Dropdown.tsx";
 import MenuBars from "./icons/MenuBars.tsx";
+import {useLocation} from "react-router-dom";
 
 export type MobileDropdownItem  = DropdownItem
 
@@ -18,6 +19,11 @@ export default function MobileDropdown({ children, items, onItemClick, setIsDrop
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsDropdownVisible(false);
+    }, [location]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
