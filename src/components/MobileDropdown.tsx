@@ -1,15 +1,16 @@
 import {useEffect, useRef, useState} from "react";
 import {DropdownItem} from "./Dropdown.tsx";
+import MenuBars from "./icons/MenuBars.tsx";
 
 export type MobileDropdownItem  = DropdownItem
 
-type DropdownProps = {
-    title: string,
+type MobileDropdownProps = {
+    children?: React.ReactNode,
     items: MobileDropdownItem[]
     onItemClick: (item: MobileDropdownItem) => void
 }
 
-export default function MobileDropdown({ title, items, onItemClick }: DropdownProps) {
+export default function MobileDropdown({ children, items, onItemClick}: MobileDropdownProps) {
 
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -34,23 +35,22 @@ export default function MobileDropdown({ title, items, onItemClick }: DropdownPr
 
     return (
         <div className="relative z-10" ref={dropdownRef}>
-            <button onClick={toggleDropdown}
-                    className="bg-black border-2 border-primary hover:border-secondary text-white px-4 py-2 rounded hover:text-primary flex flex-row items-center">
-                {title}
-                <svg className={`fill-current transition-transform ${isDropdownVisible ? 'rotate-180' : ''}`} width="20"
-                     height="20" viewBox="0 0 20 20">
-                    <path d="M5 8l5 5 5-5z"/>
-                </svg>
+            <button onClick={toggleDropdown}>
+                <MenuBars />
             </button>
-
             {isDropdownVisible && (
                 <div
-                    className={`absolute bg-black border-2 border-primary text-white p-2 rounded mt-4 flex flex-col gap-2`}>
+                    className="fixed top-0 left-0 w-full max-w-screen mt-20 bg-black border-2 border-primary text-white p-2 flex flex-col gap-2 overflow-auto">
                     {items.map((item) => (
-                        <a className={"cursor-pointer whitespace-nowrap hover:text-primary"} key={item.id} onClick={() => onItemClick(item)}>{item.label}</a>
+                        <a className="cursor-pointer whitespace-nowrap hover:text-primary" key={item.id}
+                           onClick={() => {
+                               onItemClick(item);
+                           }}>{item.label}</a>
                     ))}
+                    {children}
                 </div>
             )}
+
         </div>
     )
 }
